@@ -240,21 +240,21 @@ Mazing.prototype.tryMoveHero = function(pos) {
     }
   }
 
-  /* move hero one step */
+/* move hero one step */
 
- this.maze[this.heroPos].classList.remove("hero");
-// If hero has key, also remove the hero-with-key class from old position
-if(this.heroHasKey) {
-  this.maze[this.heroPos].classList.remove("hero-with-key");
-}
+  this.maze[this.heroPos].classList.remove("hero");
+  // If hero has key, also remove the hero-with-key class from old position
+  if(this.heroHasKey) {
+    this.maze[this.heroPos].classList.remove("hero-with-key");
+  }
 
-this.maze[pos].classList.add("hero");
-// If hero has key, also add the hero-with-key class to new position
-if(this.heroHasKey) {
-  this.maze[pos].classList.add("hero-with-key");
-}
-  this.heroPos = pos;
+  this.maze[pos].classList.add("hero");
+  // If hero has key, also add the hero-with-key class to new position
+  if(this.heroHasKey) {
+    this.maze[pos].classList.add("hero-with-key");
+  }
 
+this.heroPos = pos;
   /* check what was stepped on */
 
   if(nextStep.match(/nubbin/)) {
@@ -313,6 +313,7 @@ Mazing.prototype.mazeKeyPressHandler = function(e) {
 
     default:
       return;
+
   }
 
   this.tryMoveHero(tryPos);
