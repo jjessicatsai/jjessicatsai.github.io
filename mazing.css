@@ -5,65 +5,7 @@
   font-style: normal;
 }
 
-/* Mobile control buttons */
-#mobile-controls {
-  position: fixed;
-  bottom: 1em;  /* Reduced from 2em */
-  left: 50%;
-  transform: translateX(-50%);
-  display: grid;
-  grid-template-columns: repeat(3, 70px);  /* Slightly smaller */
-  grid-template-rows: repeat(2, 70px);
-  gap: 8px;
-  z-index: 50;
-}
 
-#mobile-controls button {
-  background: rgba(30, 31, 30, 0.8);
-  border: 3px solid #fff;
-  border-radius: 10px;
-  color: white;
-  font-size: 2em;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: 'Peanuts';
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-}
-
-#mobile-controls button:active {
-  background: rgba(30, 31, 30, 1);
-  transform: scale(0.95);
-}
-
-#btn-up {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-#btn-left {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-#btn-down {
-  grid-column: 2;
-  grid-row: 2;
-}
-
-#btn-right {
-  grid-column: 3;
-  grid-row: 2;
-}
-
-/* Hide on larger screens with keyboards */
-@media (min-width: 768px) and (hover: hover) {
-  #mobile-controls {
-    display: none;
-  }
-}
 
 #start-screen {
   position: fixed;      
@@ -86,7 +28,7 @@
 #start-screen h1 {
   max-width: 80vw;
   font-family: 'Peanuts';
-  font-size: 2.5em;
+  font-size: 2.2em;
   color: #333;
   text-align: center;
   margin: 0;
@@ -97,7 +39,7 @@
 #start-screen p {
   max-width: 80vw;
   font-family: 'Peanuts';
-  padding-bottom: 2em;
+  padding-bottom: 2.5em;
   font-size: 1em;
   color: #333;
   text-align: center;
@@ -346,7 +288,7 @@
   color: #333;
 }
 #maze_score {
-  font-family:cursive;
+  font-family: Arial, Helvetica, sans-serif;
   flex: 1;
   white-space: nowrap;
   text-align: left;
