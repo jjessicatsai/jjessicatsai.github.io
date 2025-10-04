@@ -1,0 +1,567 @@
+@font-face {
+  font-family: 'Peanuts';
+  src: url('Groundnut-yxPm.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Mobile control buttons */
+#mobile-controls {
+  position: fixed;
+  bottom: 1em;  /* Reduced from 2em */
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(3, 70px);  /* Slightly smaller */
+  grid-template-rows: repeat(2, 70px);
+  gap: 8px;
+  z-index: 50;
+}
+
+#mobile-controls button {
+  background: rgba(30, 31, 30, 0.8);
+  border: 3px solid #fff;
+  border-radius: 10px;
+  color: white;
+  font-size: 2em;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Peanuts';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+#mobile-controls button:active {
+  background: rgba(30, 31, 30, 1);
+  transform: scale(0.95);
+}
+
+#btn-up {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+#btn-left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+#btn-down {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#btn-right {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+/* Hide on larger screens with keyboards */
+@media (min-width: 768px) and (hover: hover) {
+  #mobile-controls {
+    display: none;
+  }
+}
+
+#start-screen {
+  position: fixed;      
+  top: 0;
+  left: 0;
+  width: 100vw;          
+  height: 100vh;         
+  background-color: rgba(255, 255, 255, 0.95); 
+  display: flex;         
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 9999;       
+  padding: 2em;
+  box-sizing: border-box;
+  opacity: 1;
+}
+
+#start-screen h1 {
+  max-width: 80vw;
+  font-family: 'Peanuts';
+  font-size: 2.5em;
+  color: #333;
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+  padding: 0.5em;
+}
+
+#start-screen p {
+  max-width: 80vw;
+  font-family: 'Peanuts';
+  padding-bottom: 2em;
+  font-size: 1em;
+  color: #333;
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+}
+
+#start-button {
+  font-family: 'Peanuts';
+  border: none;
+  background: #1e1f1e;
+  color: white;
+  padding: 1em 3em;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: background 0.3s;
+  align-self: center;
+}
+
+#start-button:hover {
+  background: #2e2e2e;
+}
+
+#start_screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#maze_container {
+  position: relative;
+  padding-top: 2em;
+  margin: 1em auto;
+  width: fit-content;
+  opacity: 0;  /* Start invisible */
+  pointer-events: none;  /* Can't interact with it */
+  transition: opacity 0.3s ease;  /* Smooth fade in */
+}
+
+#maze_container.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#maze {
+  position: relative;
+  background-color: #a7c53f;
+  background-image: radial-gradient(circle at 0% 0%, transparent 50%, rgba(0,0,0,0.1) 50%), radial-gradient(circle at center, rgba(0,0,0,0.1) 50%, transparent 50%), radial-gradient(circle at 100% 100%, transparent 50%, rgba(0,0,0,0.1) 50%), radial-gradient(circle at 0% 100%, transparent 50%, rgba(0,0,0,0.1) 50%), radial-gradient(circle at 100% 0%, transparent 50%, rgba(0,0,0,0.1) 50%);
+  background-size: 10em 10em;
+  width: fit-content;
+
+
+}
+
+#maze div {
+  display: flex;
+}
+#maze div div {
+  position: relative;
+  width: 3.5em;
+  height: 3.5em;
+}
+#maze div div::after {
+  position: absolute;
+  left: -3px;
+  top: -4px;
+  text-align: center;
+  text-shadow: 0 0 1px black;
+  font-size: 1.2em;
+  z-index: 10;
+}
+#maze div div.door.exit {
+  background: none !important;
+  position: relative;
+  
+}
+
+#maze div div.door.exit::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.7em;   /* adjust until she matches snoopy size */
+  height: 2.7em;
+  background: url("jessica-sad.png") no-repeat center/contain;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+}
+
+#maze div div.nubbin::after {
+  content: "";
+  display: block;
+  width: 500%;
+  height: 500%;
+  background: url("snoopy1.png") no-repeat center/contain;
+}
+
+#maze div.nubbin:nth-of-type(2n)::after {
+  content: "";
+  display: block;
+  width: 500%;
+  height: 500%;
+  background: url("snoopy1.png") no-repeat center/contain;}
+
+#maze div.nubbin:nth-of-type(3n)::after {
+  content: "";
+  display: block;
+  width: 500%;
+  height: 500%;
+  background: url("snoopy2.png") no-repeat center/contain;}
+
+#maze div.nubbin:nth-of-type(5n)::after {
+  content: "";
+  display: block;
+  width: 500%;
+  height: 500%;
+  background: url("snoopy3.png") no-repeat center/contain;}
+
+#maze div.nubbin:nth-of-type(7n)::after {
+  content: "";
+  display: block;
+  width: 500%;
+  height: 500%;
+  background: url("snoopy4.png") no-repeat center/contain;}
+
+#maze div.hero {
+  background: none !important;   /* clears any wall/nubbin backgrounds */
+}
+
+#maze div.hero::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.7em;  /* Fixed size instead of 100% */
+  height: 2.7em; /* Fixed size instead of 100% */
+  background: url("tk-sad.png") no-repeat center/contain;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+}
+
+#maze div.hero.hero-with-key::after {
+  background: url("tk-sad2.png") no-repeat center/contain; /* or whatever image you want */
+}
+
+#maze.face-right div.hero {
+  transform: scale(-1, 1);
+}
+#maze div div.wall, #maze div div.nubbin.wall {
+  background-color: #454545;
+  background-image: linear-gradient(45deg, rgba(0,0,0,0.2) 45%, transparent 55%), linear-gradient(to bottom, rgba(0,0,0,0.2) 45%, transparent 55%);
+  background-size: 0.5em 0.5em;
+}
+#maze div div.nubbin.wall::after {
+  content: none !important;
+}
+
+#maze div.sentinel.wall {
+  transform: scale(1.4); /* makes them bigger */
+  z-index: 20; /* keeps them above walls */
+}
+
+#maze div div.sentinel.wall {
+  background: none !important; /* no background directly on the cell */
+  position: relative;
+}
+#maze div.sentinel.wall:nth-of-type(3n) {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#maze div div.sentinel.wall::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.8em;   
+  height: 1.8em;
+  background: url("girl1.png") no-repeat center/contain;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+
+#maze div div.sentinel.wall:nth-of-type(2n)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.8em;    
+  height: 1.8em;
+  background: url("girl2.png") no-repeat center/contain;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+
+#maze div div.sentinel.wall:nth-of-type(3n)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.8em;    
+  height: 1.8em;
+  background: url("girl3.png") no-repeat center/contain;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+
+#maze div div:nth-child(odd) {
+  width: 0.5em;
+}
+#maze div:nth-child(odd) div {
+  height: 0.5em;
+}
+
+#maze.finished::after {
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  content: "Sorry, you were too slow...";
+  background: white;
+  text-align: center;
+  font-family: 'Peanuts';
+  font-size: 5em;
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.8);
+  color: black;
+  z-index: 100;
+}
+
+#maze_output {
+  display: flex;
+  margin: 0.5em auto;
+}
+#maze_score, #maze_message {
+  font-family: 'Peanuts';
+  padding-top: 15px;
+  font-weight: bold;
+  font-size: 1em;
+  color: #333;
+}
+#maze_score {
+  font-family:cursive;
+  flex: 1;
+  white-space: nowrap;
+  text-align: left;
+  color: #333;
+}
+#maze_score::before {
+  font-family: 'Peanuts';
+  padding-top: 15px;
+  content: "Steps left: ";
+  color: #333;
+}
+
+
+#maze div.key::after {
+  content: "";
+  display: block;
+  width: 3em;
+  height: 3em;
+  background: url("letter-snoopy.png") no-repeat center/contain; 
+}
+
+#maze_score.has-key::after {
+  content: "";
+}
+
+#maze_message {
+  flex: 3;
+  text-align: right;
+}
+
+
+#maze:has(#dialogue_screen) > div:not(#dialogue_screen) {
+  display: none;
+}
+
+#dialogue_screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-family: 'Peanuts';
+  width: 100vw;
+  height: 100vh;
+  background-color: #a7c53f;
+  background-image: radial-gradient(circle at 0% 0%, transparent 50%, rgba(0,0,0,0.1) 50%), radial-gradient(circle at center, rgba(0,0,0,0.1) 50%, transparent 50%), radial-gradient(circle at 100% 100%, transparent 50%, rgba(0,0,0,0.1) 50%), radial-gradient(circle at 0% 100%, transparent 50%, rgba(0,0,0,0.1) 50%), radial-gradient(circle at 100% 0%, transparent 50%, rgba(0,0,0,0.1) 50%);
+  background-size: 20em 20em;
+
+  z-index: 200;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4em;
+  padding: 2em;
+}
+.character-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 8vw;
+  margin-top: auto;
+}
+
+.character {
+  width: 50vw;  /* 25% of viewport width */
+  height: 50vw; /* Keep it square */
+  min-width: 300px; /* Minimum size */
+  min-height: 300px;
+  opacity: 0.7;
+  transition: opacity 0.3s, transform 0.3s;
+  flex-shrink: 0;
+}
+
+.character.speaking {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.character img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.dialogue-box {
+  background: white;
+  padding: 2em 3em;
+  border-radius: 15px;
+  box-shadow: 0px 3px 3px 2px rgba(0,0,0,0.4);
+  width: 50%;
+  max-width: 600px;
+  min-width: 400px;
+  text-align: center;
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  margin-bottom: auto;
+}
+
+.dialogue-text {
+  font-family: 'Peanuts';
+  font-size: 1.4em;
+  margin: 0;
+  line-height: 1.5;
+  color: #333;
+  word-wrap: break-word;
+}
+
+.dialogue-next {
+  font-family: 'Peanuts';
+  border: none;
+  background: #1e1f1e;
+  color: white;
+  padding: 1em 3em;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: background 0.3s;
+  align-self: center;
+
+}
+
+.dialogue-next:hover {
+  background: #2e2e2e;
+}
+#maze.dialogue-scene > div {
+  opacity: 0;
+}
+
+/* Force the dialogue screen and letter to take full width */
+#dialogue_screen {
+  width: 100vw !important;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+#letter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100% !important;
+  min-width: 100vw !important;
+  min-height: 100vh;
+  padding: 2em;
+  box-sizing: border-box;
+  background: white;
+  text-align: center;
+  overflow-y: auto;
+}
+
+/* Force all children to not be constrained */
+#letter > * {
+  max-width: 90vw !important;
+}
+
+.letter-image {
+  width: auto;
+  height: auto;
+  max-height: 50vh;
+  max-width: 80vw !important;
+  object-fit: contain;
+  margin-bottom: 1.5em;
+}
+
+#letter h1 {
+  width: auto !important;
+  min-width: 300px;
+  max-width: 40vw !important;
+  font-family: 'Peanuts', cursive;
+  font-size: 2.5em;
+  line-height: 1.6;
+  color: #333;
+  margin: 0 auto;
+  padding: 5px 20px;
+  word-wrap: break-word;
+  white-space: normal !important;
+  display: block;
+  box-sizing: border-box;
+}
+
+#letter p {
+  width: auto !important;
+  min-width: 300px;
+  max-width: 40vw !important;
+  font-family: 'Peanuts', cursive;
+  font-size: 1em;
+  line-height: 1.6;
+  color: #333;
+  margin: 0 auto;
+  padding: 5px 20px;
+  word-wrap: break-word;
+  white-space: normal !important;
+  display: block;
+  box-sizing: border-box;
+}
+
+#game_over_screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Peanuts';
+  font-size: 3em;
+  color: #333;
+  z-index: 100;
+  text-align: center;
+  padding: 2em;
+  box-sizing: border-box; 
+}
