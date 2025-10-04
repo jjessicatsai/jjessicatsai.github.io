@@ -54,68 +54,8 @@ var Mazing = function(id) {
 
   this.mazeContainer.insertAdjacentElement("afterend", mazeOutputDiv);
 
-
   this.keyPressHandler = this.mazeKeyPressHandler.bind(this);
   document.addEventListener("keydown", this.keyPressHandler, false);
-
-  // Add mobile controls
-  this.createMobileControls();
-
-};
-
-Mazing.prototype.createMobileControls = function() {
-  const controlsDiv = document.createElement("div");
-  controlsDiv.id = "mobile-controls";
-  controlsDiv.innerHTML = `
-    <button id="btn-up">▲</button>
-    <button id="btn-left">◄</button>
-    <button id="btn-down">▼</button>
-    <button id="btn-right">►</button>
-  `;
-  
-  document.body.appendChild(controlsDiv);
-  
-  // Add click handlers
-  document.getElementById("btn-up").addEventListener("click", () => {
-    this.handleMove("ArrowUp");
-  });
-  
-  document.getElementById("btn-left").addEventListener("click", () => {
-    this.handleMove("ArrowLeft");
-  });
-  
-  document.getElementById("btn-down").addEventListener("click", () => {
-    this.handleMove("ArrowDown");
-  });
-  
-  document.getElementById("btn-right").addEventListener("click", () => {
-    this.handleMove("ArrowRight");
-  });
-};
-
-Mazing.prototype.handleMove = function(direction) {
-  var tryPos = new Position(this.heroPos.x, this.heroPos.y);
-
-  switch(direction) {
-    case "ArrowLeft":
-      this.mazeContainer.classList.remove("face-right");
-      tryPos.y--;
-      break;
-    case "ArrowUp":
-      tryPos.x--;
-      break;
-    case "ArrowRight":
-      this.mazeContainer.classList.add("face-right");
-      tryPos.y++;
-      break;
-    case "ArrowDown":
-      tryPos.x++;
-      break;
-    default:
-      return;
-  }
-
-  this.tryMoveHero(tryPos);
 };
 
 Mazing.prototype.enableSpeech = function() {
@@ -166,12 +106,6 @@ Mazing.prototype.gameOver = function(text) {
     mazeOutput.style.display = "none";
   }
   
-  // Hide mobile controls
-  const mobileControls = document.getElementById("mobile-controls");
-  if(mobileControls) {
-    mobileControls.style.display = "none";
-  }
-  
   // Create a full-screen game over message
   const gameOverDiv = document.createElement("div");
   gameOverDiv.id = "game_over_screen";
@@ -184,13 +118,6 @@ Mazing.prototype.heroWins = function() {
   this.maze[this.heroPos].classList.remove("door");
   this.heroScore += 50;
   document.removeEventListener("keydown", this.keyPressHandler, false);
-  
-  // Hide mobile controls when winning
-  const mobileControls = document.getElementById("mobile-controls");
-  if(mobileControls) {
-    mobileControls.style.display = "none";
-  }
-  
   this.createDialogueScreen();
 };
 
@@ -361,7 +288,35 @@ if(this.heroHasKey) {
 };
 
 Mazing.prototype.mazeKeyPressHandler = function(e) {
-  this.handleMove(e.key);
+
+  var tryPos = new Position(this.heroPos.x, this.heroPos.y);
+
+  switch(e.key)
+  {
+    case "ArrowLeft":
+      this.mazeContainer.classList.remove("face-right");
+      tryPos.y--;
+      break;
+
+    case "ArrowUp":
+      tryPos.x--;
+      break;
+
+    case "ArrowRight":
+      this.mazeContainer.classList.add("face-right");
+      tryPos.y++;
+      break;
+
+    case "ArrowDown":
+      tryPos.x++;
+      break;
+
+    default:
+      return;
+  }
+
+  this.tryMoveHero(tryPos);
+
   e.preventDefault();
 };
 
