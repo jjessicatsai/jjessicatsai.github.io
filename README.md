@@ -9,7 +9,7 @@ Created as a surprise gift for my boyfriend on Boyfriend Day! This is an interac
 Make sure you’re using a keyboard! 
 Retrieve the letter before reaching the end, collect Snoopys, and avoid the girls blocking your way.
 
-# Controls
+### Controls
 Arrow keys: Navigate up/down/left/right through rooms
 
 ## Credits
